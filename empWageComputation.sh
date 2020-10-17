@@ -14,3 +14,11 @@ else:
    echo "Employee is not present"
 fi
 
+# employee daily wage (UC2)
+
+WAGE_PER_HOUR=20
+FULL_DAY_HOUR=8
+
+daily_wage=$(($WAGE_PER_HOUR*$FULL_DAY_HOUR))
+
+echo "Daily employee wage is: "$daily_wage
