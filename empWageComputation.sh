@@ -54,3 +54,32 @@ WORKING_DAY_PER_MONTH=20
 monthly_wage=$(($daily_wage*$WORKING_DAY_PER_MONTH))
 
 echo "Monthly wage is : "$monthly_wage
+
+# Calculate Wages till a condition of total working hours or days is reached for a month (UC6)
+
+
+total_working_hours=0
+total_working_days=0
+total_wage=0
+work_done_per_day=0
+
+echo "Press 1 for part time wage"
+echo "Press 2 for full time wage"
+
+read num
+
+case $num in
+          0) work_done_per_day=$PART_TIME_HOUR;;
+          1) work_done_per_day=$FULL_DAY_HOUR;;
+          *) work_done_per_day=0;;
+esac
+
+while [[ $total_working_days -lt 20 && $total_working_hours -lt 100 ]]
+do
+        ((total_working_days++));
+        total_working_hours=$((total_working_hours+work_done_per_day));
+        temp_wage=$((work_done_per_day*WAGE_PER_HOUR));
+        total_wage=$((temp_wage+total_wage));
+done
+
+echo "Total monthly wage : "$total_wage
