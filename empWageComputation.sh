@@ -63,23 +63,31 @@ total_working_days=0
 total_wage=0
 work_done_per_day=0
 
-echo "Press 1 for part time wage"
-echo "Press 2 for full time wage"
+get_work_done_per_day(){                            # refactor code to get working hour (UC7)
 
-read num
-
-case $num in
+case $1 in
           0) work_done_per_day=$PART_TIME_HOUR;;
           1) work_done_per_day=$FULL_DAY_HOUR;;
           *) work_done_per_day=0;;
 esac
 
+echo $work_done_per_day
+
+}
+
+
 while [[ $total_working_days -lt 20 && $total_working_hours -lt 100 ]]
 do
         ((total_working_days++));
+        work_done_per_day=$( get_work_done_per_day $((RANDOM%2)) )
         total_working_hours=$((total_working_hours+work_done_per_day));
         temp_wage=$((work_done_per_day*WAGE_PER_HOUR));
         total_wage=$((temp_wage+total_wage));
 done
 
 echo "Total monthly wage : "$total_wage
+
+
+
+
+
