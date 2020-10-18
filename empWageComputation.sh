@@ -34,7 +34,7 @@ part_time_wage=$(($WAGE_PER_HOUR*$PART_TIME_HOUR))
 echo "Part time wage is : "$part_time_wage
 
 
-# solving using switch case statement
+# solving using switch case statement(UC4)
 
 echo "Press 1 for part time wage"
 echo "Press 2 for full time wage"
@@ -46,3 +46,11 @@ case $num in
           2)echo "Full time wage : "$daily_wage;;
           *)echo "Invalid choice";;
 esac
+
+# Calculating Wages for a Month(UC5)
+
+WORKING_DAY_PER_MONTH=20
+
+monthly_wage=$(($daily_wage*$WORKING_DAY_PER_MONTH))
+
+echo "Monthly wage is : "$monthly_wage
