@@ -33,3 +33,16 @@ part_time_wage=$(($WAGE_PER_HOUR*$PART_TIME_HOUR))
 
 echo "Part time wage is : "$part_time_wage
 
+
+# solving using switch case statement
+
+echo "Press 1 for part time wage"
+echo "Press 2 for full time wage"
+
+read num
+
+case $num in
+          1)echo "Part time wage : "$part_time_wage;;
+          2)echo "Full time wage : "$daily_wage;;
+          *)echo "Invalid choice";;
+esac
