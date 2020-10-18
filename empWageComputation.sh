@@ -63,6 +63,10 @@ total_working_days=0
 total_wage=0
 work_done_per_day=0
 
+#declaration of dictionary
+declare -A day_wise_wage_storage                    # declare dict for storing day wise wage (UC8)
+
+
 get_work_done_per_day(){                            # refactor code to get working hour (UC7)
 
 case $1 in
@@ -83,9 +87,17 @@ do
         total_working_hours=$((total_working_hours+work_done_per_day));
         temp_wage=$((work_done_per_day*WAGE_PER_HOUR));
         total_wage=$((temp_wage+total_wage));
+        day_wise_wage_storage[$total_working_days]=$temp_wage           # storing day wise wage in dict (UC8)
+
+
 done
 
+# declare array
+declare -a total_wage
+total_wage[0]=$Total_wage                                           # storing total wage in array (UC8)
+
 echo "Total monthly wage : "$total_wage
+echo  ${day_wise_wage_storage[@]}
 
 
 
