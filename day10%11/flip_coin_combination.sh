@@ -1,6 +1,6 @@
-#! /bin/bash  -x
+#! /bin/bash
 
-declare -A combination
+declare -A combination       # dict for storing combinations results
 combination[H]=0
 combination[T]=0
 combination[HH]=0
@@ -17,7 +17,7 @@ combination[TTH]=0
 combination[TTT]=0
 
 
-singlet()
+singlet()                    # function for singlet combinations
 {
     count=0
     while [ $count -lt 100 ]
@@ -35,7 +35,7 @@ singlet()
 }
 
 
-doublet()
+doublet()                 # function for doublet combinations
 {
 
     count=0
@@ -68,7 +68,7 @@ doublet()
 }
 
 
-triplet()
+triplet()                    #  function for tripet combinations
 {
     count=0
 
@@ -119,10 +119,45 @@ singlet
 doublet
 triplet
 
+# percentage singlet
+echo "H percentage ${combination[H]} %"
+echo "T percentage ${combination[T]} %"
 
-declare -a array_values
+# percentage doublet
+hh_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[HH]}'/'200' ) }' )
+ht_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[HT]}'/'200' ) }' )
+th_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[TH]}'/'200' ) }' )
+tt_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[TT]}'/'200' ) }' )
 
-declare -a array_keys
+echo "HH percentage $hh_p %"
+echo "HT percentage $ht_p %"
+echo "TH percentage $th_p %"
+echo "TT percentage $tt_p %"
+
+# percentage tripet
+hhh_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[HHH]}'/'400' ) }' )
+hht_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[HHT]}'/'400' ) }' )
+hth_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[HTH]}'/'400' ) }' )
+htt_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[HTT]}'/'400' ) }' )
+thh_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[THH]}'/'400' ) }' )
+tht_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[THT]}'/'400' ) }' )
+tth_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[TTH]}'/'400' ) }' )
+ttt_p=$( awk 'BEGIN{printf "%.3f", ( '${combination[TTT]}'/'400' ) }' )
+
+echo "HHH percentage $hhh_p %"
+echo "HHT percentage $hht_p %"
+echo "HTH percentage $hth_p %"
+echo "HTT percentage $htt_p %"
+echo "THH percentage $thh_p %"
+echo "THT percentage $tht_p %"
+echo "TTH percentage $tth_p %"
+echo "TTT percentage $ttt_p %"
+
+
+declare -a array_values         # storing all dict values in array for sorting
+
+declare -a array_keys          # storing all keys in array to keep records which key has max value
+
 index=0
 for key in ${!combination[@]}
 do
@@ -131,8 +166,8 @@ do
   index=$(($index+1))
 done
 
-
-len=${#array_values[@]}
+# sorting array with keeping key record
+len=${#array_values[@]}                 # length of array
 for (( i=0; i<$len; i++ ))
 do
    for (( j=$(($i+1)); j<$len; j++ ))
@@ -149,6 +184,6 @@ do
    done
 done
 
-echo "${array_keys[@]}"
-echo "${array_values[@]}"
+echo "${array_keys[@]}"                # printing sorted combinations type
+echo "${array_values[@]}"              # printing sorted values
 echo "${array_keys[0]}  has highest count value than other combinations"
