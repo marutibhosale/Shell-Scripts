@@ -1,4 +1,4 @@
-#! /bin/bash -x
+#! /bin/bash  -x
 
 declare -A combination
 combination[H]=0
@@ -119,16 +119,36 @@ singlet
 doublet
 triplet
 
-echo "single :"${combination[@]}
 
 declare -a array_values
 
 declare -a array_keys
-
 index=0
 for key in ${!combination[@]}
 do
-  array_values[index++]=${combination[$key]}
-  array_keys[index++]=$key
+  array_values[$index]=${combination[$key]}
+  array_keys[$index]=$key
+  index=$(($index+1))
 done
 
+
+len=${#array_values[@]}
+for (( i=0; i<$len; i++ ))
+do
+   for (( j=$(($i+1)); j<$len; j++ ))
+   do
+      if [ ${array_values[j]} -gt ${array_values[i]} ]
+      then
+          temp_value=${array_values[i]}
+          temp_key=${array_keys[i]}
+          array_values[i]=${array_values[j]}
+          array_keys[i]=${array_keys[j]}
+          array_values[j]=$temp_value
+          array_keys[j]=$temp_key
+      fi
+   done
+done
+
+echo "${array_keys[@]}"
+echo "${array_values[@]}"
+echo "${array_keys[0]}  has highest count value than other combinations"
