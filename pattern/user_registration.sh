@@ -2,6 +2,7 @@
 
 shopt -s extglob
 
+
 read -p "Enter first name : " fName
 
 read -p  "Enter last name :" lName
@@ -9,6 +10,8 @@ read -p  "Enter last name :" lName
 read  -p "Enter last name :" email
 
 read -p "Enter phone number :" pNumber
+
+read -p "Enter password : " password
 
 
 validateName()
@@ -60,3 +63,19 @@ validatePhone()
 }
 
 validatePhone $pNumber
+
+
+validatePassword()
+{
+   passPat="^(?=.*[a-z])(?=.*[0-9])(?=.*[A-z])(?=.*[@!#?])[a-zA-Z0-9@!#?]{8,15}$"
+     if [[ $1 =~ $passPat ]]
+     then
+        echo "password validate done"
+     else
+        echo "password requirement not match"
+    fi
+
+
+}
+
+validatePassword $password
