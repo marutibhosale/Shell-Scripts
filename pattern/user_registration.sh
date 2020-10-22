@@ -8,6 +8,7 @@ read -p  "Enter last name :" lName
 
 read  -p "Enter last name :" email
 
+read -p "Enter phone number :" pNumber
 
 
 validateName()
@@ -43,3 +44,19 @@ validateEmail()
 
 
 validateEmail $email
+
+
+validatePhone()
+{
+
+   phonePat="^(\+91|\+0)?[9876]{1}[0-9]{9}$"
+     if [[ $1 =~ $phonePat ]]
+     then
+        echo "Phone number is valid"
+     else
+        echo "not valid phone number"
+    fi
+
+}
+
+validatePhone $pNumber
